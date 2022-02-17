@@ -17,6 +17,7 @@ duel master  辅助脚本，适用于steam版本程序, 脚本稳定性高, 几�
 - 微信推送使用方糖, 请在config.json内修改url链接
 
 duel master assist script for steam version
+
 support: Xyz activity
 
 #### 环境要求
