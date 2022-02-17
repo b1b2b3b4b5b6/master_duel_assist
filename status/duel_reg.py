@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-23 11:08:45
-LastEditTime: 2022-02-17 21:26:38
+LastEditTime: 2022-02-17 23:24:19
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\base_reg.py
@@ -22,7 +22,8 @@ class STATUS_DUEL_NOTSELECT(STATUS_BASE):
         recursive_update(self.transfer_dict, custom_dict)
 
         self.staimg_list = [
-            tool.ProofImg('img/duel/not_select.png')
+            tool.ProofImg('img/duel/not_select.png'),
+            tool.ProofImg('img/duel/gou.png', typ='not_exist'),
         ]
 
 
@@ -36,7 +37,8 @@ class STATUS_DUEL_SELECT(STATUS_BASE):
         recursive_update(self.transfer_dict, custom_dict)
 
         self.staimg_list = [
-            tool.ProofImg('img/duel/select.png')
+            tool.ProofImg('img/duel/select.png'),
+            tool.ProofImg('img/duel/gou.png'),
         ]
 
 
