@@ -1,0 +1,12 @@
+dict_recursive_update==1.0.1
+matplotlib==3.3.4
+networkx==2.5
+numpy==1.20.1
+opencv_python==4.5.1.48
+PyAutoGUI==0.9.52
+pykeyboard==0.1.2
+pymouse==1.0
+PyUserInput==0.1.10
+requests==2.26.0
+schedule==1.0.0
+Shapely==1.8.0

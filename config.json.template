@@ -1,0 +1,12 @@
+{
+    "ft_url_prefix": "https://sctapi.ftqq.com/xxxxxxxxxxxx.send?title=",
+    "platform": "pc",
+    "app_img_offset": [
+        0,
+        0
+    ],
+    "app_img_wh": [
+        720,
+        1280
+    ]
+}
