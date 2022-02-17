@@ -1,6 +1,6 @@
 # duel_master_assist
 
-duel master  辅助脚本，适用于steam版本程序, 脚本稳定性高, 几乎不会卡死
+duel master  辅助挂机脚本，适用于steam版本程序, 脚本稳定性高, 几乎不会卡死
 支持：超量活动挂机(等被对面打死)
 
 #### 环境要求
