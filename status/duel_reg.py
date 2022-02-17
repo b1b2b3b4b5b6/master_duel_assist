@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-23 11:08:45
-LastEditTime: 2022-02-17 23:24:19
+LastEditTime: 2022-02-17 23:31:22
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\base_reg.py
@@ -26,6 +26,8 @@ class STATUS_DUEL_NOTSELECT(STATUS_BASE):
             tool.ProofImg('img/duel/gou.png', typ='not_exist'),
         ]
 
+        self.priority = STATUS_BASE.PRI_HIGH
+
 
 class STATUS_DUEL_SELECT(STATUS_BASE):
     def __init__(self):
@@ -40,6 +42,8 @@ class STATUS_DUEL_SELECT(STATUS_BASE):
             tool.ProofImg('img/duel/select.png'),
             tool.ProofImg('img/duel/gou.png'),
         ]
+
+        self.priority = STATUS_BASE.PRI_HIGH
 
 
 class STATUS_DUEL_CHOOSESIDE(STATUS_BASE):
