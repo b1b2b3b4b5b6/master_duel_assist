@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-23 11:08:45
-LastEditTime: 2022-02-20 16:08:53
+LastEditTime: 2022-02-20 18:45:00
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\base_reg.py
@@ -161,7 +161,7 @@ class STATUS_DUELPOINT_CANCLE(STATUS_DUELPOINT_BASE):
         super().__init__()
 
         custom_dict = {
-            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/duel/cancle.png')
+            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/duel/cancle.png', is_cache=False)
         }
         recursive_update(self.transfer_dict, custom_dict)
 
@@ -175,7 +175,7 @@ class STATUS_DUELPOINT_NO(STATUS_DUELPOINT_BASE):
         super().__init__()
 
         custom_dict = {
-            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/duel/no.png')
+            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/duel/no.png', is_cache=False)
         }
         recursive_update(self.transfer_dict, custom_dict)
 
