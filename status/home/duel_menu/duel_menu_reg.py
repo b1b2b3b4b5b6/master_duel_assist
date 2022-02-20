@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-23 11:08:45
-LastEditTime: 2022-02-20 15:41:09
+LastEditTime: 2022-02-20 16:09:04
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\base_reg.py
@@ -37,4 +37,18 @@ class STATUS_DUEL_CHOOSESIDE(STATUS_BASE):
 
         self.staimg_list += [
             tool.ProofImg('img/duel/going_first.png')
+        ]
+
+
+class STATUS_DUEL_RESULT(STATUS_BASE):
+    def __init__(self):
+        super().__init__()
+
+        custom_dict = {
+            'STATUS_HOME': tool.OperationClickOnImg('img/duel/duel_result.png')
+        }
+        recursive_update(self.transfer_dict, custom_dict)
+
+        self.staimg_list += [
+            tool.ProofImg('img/duel/duel_result.png')
         ]
