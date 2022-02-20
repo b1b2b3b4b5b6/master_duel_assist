@@ -22,7 +22,7 @@ class STATUS_XYZ_LOANER(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/activity/xyz/loaner_on.png')
         ]
 
@@ -36,6 +36,6 @@ class STATUS_XYZ_MYDECK(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/activity/xyz/my_deck_on.png')
         ]

@@ -21,6 +21,6 @@ class STATUS_HOME(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/home/duel_enter.png')
         ]

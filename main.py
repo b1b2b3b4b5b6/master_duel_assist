@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 01:11:28
-LastEditTime: 2022-02-17 22:57:24
+LastEditTime: 2022-02-20 15:09:46
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \挂机\main.py
@@ -27,7 +27,6 @@ tool.init()
 t = transfer.StatusControlThread()
 t.start()
 
-# schedule.every(20).minutes.do(npc, t)
 schedule.every(1).seconds.do(xyz, t)
 schedule.run_all()
 
@@ -38,4 +37,4 @@ try:
 
 except KeyboardInterrupt:
     t.set_thead_status('stop')
-    print('已退出')
+    logging.info('已退出')

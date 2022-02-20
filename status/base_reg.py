@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-23 11:08:45
-LastEditTime: 2022-02-17 21:07:14
+LastEditTime: 2022-02-20 15:07:13
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\base_reg.py
@@ -32,7 +32,7 @@ class STATUS_CONNECTING(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/base/connecting.png')
         ]
 
@@ -48,7 +48,7 @@ class STATUS_OK(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/base/ok.png')
         ]
 
@@ -64,7 +64,7 @@ class STATUS_RETRY(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/base/retry.png')
         ]
 

@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-23 11:08:45
-LastEditTime: 2022-02-18 08:58:17
+LastEditTime: 2022-02-20 15:50:23
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\base_reg.py
@@ -12,7 +12,35 @@ from status.base_reg import STATUS_BASE
 from dict_recursive_update import recursive_update
 
 
-class STATUS_DUEL_FINDOPPONECTRETRY(STATUS_BASE):
+class STATUS_DUEL_BASE(STATUS_BASE):
+    def __init__(self):
+        super().__init__()
+
+        custom_dict = {
+        }
+        recursive_update(self.transfer_dict, custom_dict)
+
+        self.staimg_list += [
+            tool.ProofImg('img/duel/ing.png'),
+            tool.ProofImg('img/duel/blue_arrow.png', is_exist=False)
+        ]
+
+
+class STATUS_DUELPOINT_BASE(STATUS_BASE):
+    def __init__(self):
+        super().__init__()
+
+        custom_dict = {
+        }
+        recursive_update(self.transfer_dict, custom_dict)
+
+        self.staimg_list += [
+            tool.ProofImg('img/duel/ing.png'),
+            tool.ProofImg('img/duel/blue_arrow.png')
+        ]
+
+
+class STATUS_DUEL_FINDOPPONECTRETRY(STATUS_DUEL_BASE):
     def __init__(self):
         super().__init__()
 
@@ -21,62 +49,14 @@ class STATUS_DUEL_FINDOPPONECTRETRY(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/duel/find_opponent_retry.png')
         ]
 
         self.priority = STATUS_BASE.PRI_HIGH
 
 
-class STATUS_DUEL_NOTSELECT(STATUS_BASE):
-    def __init__(self):
-        super().__init__()
-
-        custom_dict = {
-            'STATUS_DUEL_SELECT': tool.OperationLeftClick([639, 580])
-        }
-        recursive_update(self.transfer_dict, custom_dict)
-
-        self.staimg_list = [
-            tool.ProofImg('img/duel/not_select.png'),
-            tool.ProofImg('img/duel/gou.png', typ='not_exist'),
-        ]
-
-        self.priority = STATUS_BASE.PRI_HIGH
-
-
-class STATUS_DUEL_SELECT(STATUS_BASE):
-    def __init__(self):
-        super().__init__()
-
-        custom_dict = {
-            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/duel/select.png')
-        }
-        recursive_update(self.transfer_dict, custom_dict)
-
-        self.staimg_list = [
-            tool.ProofImg('img/duel/select.png'),
-            tool.ProofImg('img/duel/gou.png'),
-        ]
-
-        self.priority = STATUS_BASE.PRI_HIGH
-
-
-class STATUS_DUEL_CHOOSESIDE(STATUS_BASE):
-    def __init__(self):
-        super().__init__()
-
-        custom_dict = {
-            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/duel/going_first.png')
-        }
-        recursive_update(self.transfer_dict, custom_dict)
-
-        self.staimg_list = [
-            tool.ProofImg('img/duel/going_first.png')
-        ]
-
-
-class STATUS_DUEL_OPPONENTTURN(STATUS_BASE):
+class STATUS_DUEL_OPPONENTTURN(STATUS_DUEL_BASE):
     def __init__(self):
         super().__init__()
 
@@ -85,12 +65,12 @@ class STATUS_DUEL_OPPONENTTURN(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/duel/opponent_turn.png')
         ]
 
 
-class STATUS_DUEL_MAIN1(STATUS_BASE):
+class STATUS_DUEL_MAIN1(STATUS_DUEL_BASE):
     def __init__(self):
         super().__init__()
 
@@ -99,12 +79,12 @@ class STATUS_DUEL_MAIN1(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/duel/main1.png')
         ]
 
 
-class STATUS_DUEL_DRAW(STATUS_BASE):
+class STATUS_DUEL_DRAW(STATUS_DUEL_BASE):
     def __init__(self):
         super().__init__()
 
@@ -113,12 +93,12 @@ class STATUS_DUEL_DRAW(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/duel/draw.png')
         ]
 
 
-class STATUS_DUEL_CHANGEPHASE(STATUS_BASE):
+class STATUS_DUEL_CHANGEPHASE(STATUS_DUEL_BASE):
     def __init__(self):
         super().__init__()
 
@@ -127,12 +107,12 @@ class STATUS_DUEL_CHANGEPHASE(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/duel/end_phase.png')
         ]
 
 
-class STATUS_DUEL_END(STATUS_BASE):
+class STATUS_DUEL_END(STATUS_DUEL_BASE):
     def __init__(self):
         super().__init__()
 
@@ -141,12 +121,12 @@ class STATUS_DUEL_END(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/duel/duel_end.png')
         ]
 
 
-class STATUS_DUEL_RESULT(STATUS_BASE):
+class STATUS_DUEL_RESULT(STATUS_DUEL_BASE):
     def __init__(self):
         super().__init__()
 
@@ -155,6 +135,64 @@ class STATUS_DUEL_RESULT(STATUS_BASE):
         }
         recursive_update(self.transfer_dict, custom_dict)
 
-        self.staimg_list = [
+        self.staimg_list += [
             tool.ProofImg('img/duel/duel_result.png')
+        ]
+
+
+class STATUS_DUELPOINT_NOTSELECT(STATUS_DUELPOINT_BASE):
+    def __init__(self):
+        super().__init__()
+
+        custom_dict = {
+            'STATUS_DUELPOINT_SELECT': tool.OperationLeftClick([639, 580])
+        }
+        recursive_update(self.transfer_dict, custom_dict)
+
+        self.staimg_list += [
+            tool.ProofImg('img/duel/not_select.png'),
+            tool.ProofImg('img/duel/gou.png', is_exist=False),
+        ]
+
+
+class STATUS_DUELPOINT_SELECT(STATUS_DUELPOINT_BASE):
+    def __init__(self):
+        super().__init__()
+
+        custom_dict = {
+            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/duel/select.png')
+        }
+        recursive_update(self.transfer_dict, custom_dict)
+
+        self.staimg_list += [
+            tool.ProofImg('img/duel/select.png'),
+            tool.ProofImg('img/duel/gou.png'),
+        ]
+
+
+class STATUS_DUELPOINT_CANCLE(STATUS_DUELPOINT_BASE):
+    def __init__(self):
+        super().__init__()
+
+        custom_dict = {
+            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/duel/cancle.png')
+        }
+        recursive_update(self.transfer_dict, custom_dict)
+
+        self.staimg_list += [
+            tool.ProofImg('img/duel/cancle.png')
+        ]
+
+
+class STATUS_DUELPOINT_NO(STATUS_DUELPOINT_BASE):
+    def __init__(self):
+        super().__init__()
+
+        custom_dict = {
+            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/duel/no.png')
+        }
+        recursive_update(self.transfer_dict, custom_dict)
+
+        self.staimg_list += [
+            tool.ProofImg('img/duel/no.png')
         ]

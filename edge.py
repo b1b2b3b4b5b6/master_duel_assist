@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2022-01-06 01:48:04
-LastEditTime: 2022-01-07 04:08:03
+LastEditTime: 2022-02-19 23:08:08
 LastEditors: Please set LastEditors
 Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 FilePath: \dllink_assist\edge.py
@@ -76,10 +76,10 @@ class EdgeDetectBase():
 
 
 class BoxDetect(EdgeDetectBase):
-    box_width_rate = 360/540
+    box_width_rate = 100/1280
     box_width_offset = 0.01
     box_center_radius_rate = 100 / 540
-    box_area_rate = 1/8
+    box_area_rate = 1/20
 
     def __init__(self, thresh=254, gaussion_arg=None, windos_name='BoxDetect') -> None:
         super().__init__(thresh, gaussion_arg=gaussion_arg, windos_name=windos_name)
@@ -89,12 +89,13 @@ class BoxDetect(EdgeDetectBase):
 
         out_contours = []
         for c in self.contours:
-            _, _, w, h = tuple(self.get_coutour_xywh(c))
+            x, y, w, h = tuple(self.get_coutour_xywh(c))
 
-            # 弹出窗口的宽度是固定的
             app_w = tool.g_resource.env_info.app_img_wh[0]
             app_h = tool.g_resource.env_info.app_img_wh[1]
-            if w < app_w * (self.box_width_rate - self.box_width_offset) or w > app_w * (self.box_width_rate + self.box_width_offset):
+
+            # # 弹出窗口的宽度有要求
+            if w < app_w * (self.box_width_rate - self.box_width_offset):
                 continue
 
            # 弹出窗口大小有要求
@@ -103,9 +104,13 @@ class BoxDetect(EdgeDetectBase):
                 continue
 
             # 弹出窗口的中心是固定的
-            circ = geometry.Point(
-                app_w//2, app_h//2).buffer(self.box_center_radius_rate * app_w)
-            if circ.intersects(geometry.Point(*(self.get_contour_center(c)))) == False:
+            # circ = geometry.Point(
+            #     app_w//2, app_h//2).buffer(self.box_center_radius_rate * app_w)
+            # if circ.intersects(geometry.Point(*(self.get_contour_center(c)))) == False:
+            #     continue
+
+            # 弹出窗口垂直居中
+            if abs((x + w/2)/app_w - 0.5) > 0.05:
                 continue
 
             out_contours.append(c)

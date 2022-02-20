@@ -1,13 +1,14 @@
 '''
 Author: your name
 Date: 2021-02-24 06:17:11
-LastEditTime: 2022-02-17 20:44:45
+LastEditTime: 2022-02-20 15:33:21
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\transfer.py
 '''
 
 
+from gettext import find
 import inspect
 
 from networkx.readwrite.json_graph import tree
@@ -53,7 +54,10 @@ class StatusControlThread(threading.Thread):
                 for k, _ in self.status_dict[name].transfer_dict.items():
                     self.G.add_edge(name, k)
 
-        self.status_dict.pop('STATUS_BASE')
+        for key in list(self.status_dict.keys()):
+            if key[-5:] == '_BASE':
+                self.status_dict.pop(key)
+
         z = list(zip(self.status_dict.keys(), self.status_dict.values()))
         z = sorted(z, key=lambda x: x[1].priority, reverse=True)
         self.status_dict = dict(z)
@@ -110,7 +114,7 @@ class StatusControlThread(threading.Thread):
     def run(self):  # 必须有的函数
         self.thread_close_flag = False
         while True:
-            time.sleep(0.05)
+            time.sleep(0.01)
 
             if self.thread_status == 'run':
                 pass
@@ -118,12 +122,6 @@ class StatusControlThread(threading.Thread):
                 exit()
             elif self.thread_status == 'pause':
                 continue
-
-            # now_stamp = (int(round(time.time() * 1000)))
-            # if now_stamp - self.last_ms_stamp > 500:
-            #     self.last_ms_stamp = now_stamp
-            # else:
-            #     continue
 
             if self.search_status() == False:
                 continue
@@ -175,6 +173,7 @@ class StatusControlThread(threading.Thread):
             tool.kick_ass()
             return False
 
+        tool.Proof.reset_cache()
         if check() == True:
             self.reset_kick_all()
             logging.debug(f'search status finished, {self}')

@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 02:27:24
-LastEditTime: 2022-02-17 23:19:49
+LastEditTime: 2022-02-20 15:19:36
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \挂机\findpic.py
@@ -131,7 +131,8 @@ class Resource():
 
     def refresh_screenshot(self):
         self.screenshot_lock.acquire()
-        img = pyautogui.screenshot()  # x,y,w,h
+        # x,y,w,h
+        img = pyautogui.screenshot()
 
         self.screenshot = cv.cvtColor(numpy.array(img), cv.COLOR_RGB2BGR)
         self.screenshot_lock.release()
@@ -299,7 +300,11 @@ class OperationSlide(OperationBase):
         super().action()
 
 
+g_proof_cache: dict = {}
+
+
 class Proof():
+
     def __init__(self) -> None:
         pass
 
@@ -309,21 +314,35 @@ class Proof():
     def __str__(self) -> str:
         return ''
 
+    @staticmethod
+    def reset_cache():
+        global g_proof_cache
+        g_proof_cache = {}
+
+    @staticmethod
+    def get_cache(key: str):
+        if key in g_proof_cache:
+            return g_proof_cache[key]
+        else:
+            return None
+
+    @staticmethod
+    def set_cache(key: str, status: bool):
+        g_proof_cache[key] = status
+
 
 class ProofImg(Proof):
     allow_typ = ['exist', 'not_exist']
     img_key = None
     typ = None
     bg_app = None
+    is_exist = None
 
-    def __init__(self, img_key, typ='exist', bg_app=True) -> None:
+    def __init__(self, img_key, is_exist=True, bg_app=True) -> None:
         super().__init__()
         self.img_key = img_key
-        self.typ = typ
+        self.is_exist = is_exist
         self.bg_app = bg_app
-        if typ not in self.allow_typ:
-            logging.error(f'illegal proofimg: {self}')
-            assert(None)
 
         g_resource.register_resource(img_key, cv.imread(
             g_resource.env_info.get_path_by_key(img_key)))
@@ -332,30 +351,22 @@ class ProofImg(Proof):
         return f'{super().__str__()} | ProofImg: img_key[{self.img_key}] typ[{self.typ}]'.strip()
 
     def get_result(self) -> bool:
-        if self.bg_app == True:
-            bg = g_resource.get_appshot()
-        else:
-            bg = g_resource.get_screenshot()
+        if None == self.get_cache(self.img_key):
+            if self.bg_app == True:
+                bg = g_resource.get_appshot()
+            else:
+                bg = g_resource.get_screenshot()
 
-        if self.typ == 'exist':
             xy = ImgHandle.find_img(
                 bg, g_resource.get_resource_obj(self.img_key))
 
             if xy == None:
                 logging.debug(
                     f'{self} | can not proof]')
-                return False
 
-        elif self.typ == 'not_exist':
-            xy = ImgHandle.find_img(
-                bg, g_resource.get_resource_obj(self.img_key))
+            self.set_cache(self.img_key, xy != None)
 
-            if xy != None:
-                logging.debug(
-                    f'{self} | can not proof]')
-                return False
-
-        return True
+        return self.get_cache(self.img_key) == self.is_exist
 
 
 def retry(func, count=1, delay=0):
