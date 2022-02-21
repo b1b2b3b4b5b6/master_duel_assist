@@ -1,6 +1,6 @@
-# duel_master_assist
+# master_duel_assist
 
-duel master  辅助挂机脚本，适用于steam版本程序, 脚本稳定性高, 几乎不会卡死
+master duel  辅助挂机脚本，适用于steam版本程序, 脚本稳定性高, 几乎不会卡死
 支持：超量活动挂机(等被对面打死或对面自爆)
 
 #### 环境要求
@@ -15,7 +15,7 @@ duel master  辅助挂机脚本，适用于steam版本程序, 脚本稳定性高
 - 执行main.py后立即将游戏窗口前置
 
 
-duel master assist script for steam version
+master duel assist script for steam version
 
 support: Xyz activity
 
