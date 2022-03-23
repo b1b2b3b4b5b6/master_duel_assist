@@ -13,11 +13,11 @@ master duel  辅助挂机脚本，适用于steam版本程序, 脚本稳定性高
 #### 使用
 
 - 复制config.json.template到config.json, 无需修改即可使用
-- 执行main.py后立即将游戏窗口前置
+- 运行main.py
 
 master duel assist script for steam version
 
-support: Xyz activity
+support: Xyz nr festival
 
 #### requirement
 
@@ -29,4 +29,4 @@ support: Xyz activity
 #### use
 
 - copy config.json.template to config.json, no need edit
-- exec main.py and put game window front
+- exec main.py
