@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 02:27:24
-LastEditTime: 2022-02-20 15:19:36
+LastEditTime: 2022-03-23 22:31:25
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \挂机\findpic.py
@@ -19,6 +19,8 @@ import threading
 import pathlib
 import requests
 import numpy
+import win32gui
+import win32con
 
 
 class ImgHandle():
@@ -151,17 +153,23 @@ class Resource():
                                self.get_base_point()[0]:(self.get_base_point()[0] + self.env_info.app_img_wh[0])]
 
     def reset_base_point(self):
-        xy = ImgHandle.find_img(
-            self.get_screenshot(True),
-            cv.imread(self.env_info.get_path_by_key('img/base/base_point.png'))
-        )
-        if xy == None:
-            logging.error('can not find base_point')
+
+        logging.info('finding game window')
+        hwnd = win32gui.FindWindow(None, "masterduel")
+        if hwnd == None:
+            logging.error('can not find game window')
             assert(None)
-        else:
-            self.base_point = [ImgHandle.get_left_lower_point(xy)[0] + self.env_info.app_img_offset[0],
-                               ImgHandle.get_left_lower_point(xy)[1] + self.env_info.app_img_offset[1]]
-            logging.info(f'base point is {self.base_point}')
+
+        win32gui.ShowWindow(hwnd, win32con.SW_SHOWNORMAL)
+        win32gui.SetForegroundWindow(hwnd)
+        print(win32gui.GetWindowPlacement(hwnd))
+        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0,
+                              0, 0, win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
+
+        self.base_point = [8 + self.env_info.app_img_offset[0],
+                           31 + self.env_info.app_img_offset[1]]
+
+        logging.info(f'base point is {self.base_point}')
 
     def get_base_point(self):
         # if self.base_point == None:
@@ -180,8 +188,6 @@ g_resource: Resource = None
 
 def init():
     global g_resource
-    logging.info('please put game windows top')
-    time.sleep(3)
 
     g_resource = Resource(EnvInfo('pc'))
 
