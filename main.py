@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 01:11:28
-LastEditTime: 2022-02-20 15:09:46
+LastEditTime: 2022-03-23 20:44:16
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \挂机\main.py
@@ -17,10 +17,10 @@ logging.basicConfig(level=logging.INFO,
 
 
 def xyz(control: transfer.StatusControlThread):
-    logging.info('do xyz start')
-    control.goto_status('STATUS_XYZ_MYDECK', 0)
+    logging.info('do festival start')
+    control.goto_status('STATUS_FESTIVAL_MYDECK', 0)
     control.goto_status('STATUS_DUEL_MAIN1', 0)
-    logging.info('do xyz finished')
+    logging.info('do festival finished')
 
 
 tool.init()

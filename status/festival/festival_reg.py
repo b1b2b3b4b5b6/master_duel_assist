@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-03-04 21:33:52
-LastEditTime: 2022-02-17 21:07:04
+LastEditTime: 2022-03-23 20:43:04
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\pvp_reg.py
@@ -13,29 +13,29 @@ from status.base_reg import STATUS_BASE
 from dict_recursive_update import recursive_update
 
 
-class STATUS_XYZ_LOANER(STATUS_BASE):
+class STATUS_FESTIVAL_LOANER(STATUS_BASE):
     def __init__(self):
         super().__init__()
 
         custom_dict = {
-            'STATUS_XYZ_MYDECK': tool.OperationClickOnImg('img/activity/xyz/my_deck_off.png')
+            'STATUS_FESTIVAL_MYDECK': tool.OperationClickOnImg('img/festival/my_deck_off.png')
         }
         recursive_update(self.transfer_dict, custom_dict)
 
         self.staimg_list += [
-            tool.ProofImg('img/activity/xyz/loaner_on.png')
+            tool.ProofImg('img/festival/loaner_on.png')
         ]
 
 
-class STATUS_XYZ_MYDECK(STATUS_BASE):
+class STATUS_FESTIVAL_MYDECK(STATUS_BASE):
     def __init__(self):
         super().__init__()
 
         custom_dict = {
-            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/activity/xyz/start_duel.png')
+            'STATUS_DUEL_MAIN1': tool.OperationClickOnImg('img/festival/start_duel.png')
         }
         recursive_update(self.transfer_dict, custom_dict)
 
         self.staimg_list += [
-            tool.ProofImg('img/activity/xyz/my_deck_on.png')
+            tool.ProofImg('img/festival/my_deck_on.png')
         ]
