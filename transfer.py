@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-24 06:17:11
-LastEditTime: 2022-02-20 15:33:21
+LastEditTime: 2022-03-23 21:41:29
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\transfer.py
@@ -11,9 +11,6 @@ FilePath: \dllink_assist\transfer.py
 from gettext import find
 import inspect
 
-from networkx.readwrite.json_graph import tree
-from win32con import CB_INITSTORAGE
-from status.base_reg import STATUS_BASE
 import tool
 import sys
 import networkx as nx
@@ -23,10 +20,7 @@ import threading
 import time
 from dict_recursive_update import recursive_update
 import collections
-import cv2 as cv
 import importlib
-import duel
-from pathlib import Path
 
 duel_list = ['STATUS_PVP_DUEL', 'STATUS_GATE_DUEL']
 
