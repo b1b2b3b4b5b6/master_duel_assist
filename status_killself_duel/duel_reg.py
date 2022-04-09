@@ -147,7 +147,8 @@ class STATUS_DUELPOINT_ASK_ACTIVATE_NOT_SELECT(STATUS_DUELPOINT_BASE):
         recursive_update(self.transfer_dict, custom_dict)
 
         self.staimg_list += [
-            tool.ProofImg('img/duel/ask_activate.png'),
+            tool.ProofImgOR([tool.ProofImg('img/duel/ask_activate.png'),
+                             tool.ProofImg('img/duel/chain_ask_activate.png')]),
             tool.ProofImg('img/duel/gou.png', is_exist=False)
         ]
 
@@ -162,6 +163,7 @@ class STATUS_DUELPOINT_ASK_ACTIVATE_SELECT(STATUS_DUELPOINT_BASE):
         recursive_update(self.transfer_dict, custom_dict)
 
         self.staimg_list += [
-            tool.ProofImg('img/duel/ask_activate.png'),
+            tool.ProofImgOR([tool.ProofImg('img/duel/ask_activate.png'),
+                             tool.ProofImg('img/duel/chain_ask_activate.png')]),
             tool.ProofImg('img/duel/gou.png')
         ]

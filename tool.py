@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 02:27:24
-LastEditTime: 2022-04-10 00:24:40
+LastEditTime: 2022-04-10 01:16:24
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \挂机\findpic.py
@@ -360,11 +360,6 @@ class Proof():
 
 
 class ProofImg(Proof):
-    allow_typ = ['exist', 'not_exist']
-    img_key = None
-    typ = None
-    bg_app = None
-    is_exist = None
 
     def __init__(self, img_key, is_exist=True, bg_app=True) -> None:
         super().__init__()
@@ -376,7 +371,7 @@ class ProofImg(Proof):
             g_resource.env_info.get_path_by_key(img_key)))
 
     def __str__(self) -> str:
-        return f'{super().__str__()} | ProofImg: img_key[{self.img_key}] typ[{self.typ}]'.strip()
+        return f'{super().__str__()} | ProofImg: img_key[{self.img_key}] '.strip()
 
     def get_result(self) -> bool:
         if None == self.get_cache(self.img_key):
@@ -395,6 +390,21 @@ class ProofImg(Proof):
             self.set_cache(self.img_key, xy != None)
 
         return self.get_cache(self.img_key) == self.is_exist
+
+
+class ProofImgOR(Proof):
+    def __init__(self, proof_list: list, ) -> None:
+        super().__init__()
+        self.proof_list = proof_list
+
+    def __str__(self) -> str:
+        return f'{super().__str__()} | ProofImgOR: proof_list[{self.proof_list}] '.strip()
+
+    def get_result(self) -> bool:
+        for p in self.proof_list:
+            if p.get_result() == True:
+                return True
+        return False
 
 
 def retry(func, count=1, delay=0):
