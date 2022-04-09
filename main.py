@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 01:11:28
-LastEditTime: 2022-04-10 01:05:24
+LastEditTime: 2022-04-10 01:56:42
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \挂机\main.py
@@ -26,6 +26,7 @@ def festival(control: transfer.StatusControlThread):
     logging.info('do festival start')
     control.goto_status('STATUS_FESTIVAL_MYDECK', 0)
     control.goto_status('STATUS_DUEL_MAIN1', 0)
+    control.goto_status('STATUS_HOME', 0)
     logging.info('do festival finished')
 
 
@@ -34,13 +35,14 @@ def rank(control: transfer.StatusControlThread):
     logging.info('do rank start')
     control.goto_status('STATUS_RANK_MYDECK', 0)
     control.goto_status('STATUS_DUEL_MAIN1', 0)
+    control.goto_status('STATUS_HOME', 0)
     logging.info('do rank finished')
 
 
 def get_awards(control: transfer.StatusControlThread):
     control.re_init(killself_duel_status_list)
     logging.info('do get_awards start')
-    control.goto_status('STATUS_MISSIONS', 0)
+    control.goto_status('STATUS_MISSIONS_NO_AWARDS', 0)
     control.goto_status('STATUS_HOME', 0)
     logging.info('do get_awards finished')
 

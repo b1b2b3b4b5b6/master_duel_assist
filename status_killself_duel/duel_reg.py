@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2022-04-09 17:18:02
-LastEditTime: 2022-04-10 00:52:18
+LastEditTime: 2022-04-10 01:51:03
 LastEditors: Please set LastEditors
 Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 FilePath: \master_duel_assist\status_killself_duel\duel_reg.py
@@ -35,7 +35,7 @@ class STATUS_DUEL_MAIN1(STATUS_DUEL_MAIN1_BASE):
         super().__init__()
 
         custom_dict = {
-            'STATUS_DUEL_CHANGEPHASE': tool.OperationChanceList([tool.OperationLeftClick([690, 670]), tool.OperationClickOnImg('img/duel/main1.png')], [5, 1])
+            'STATUS_DUEL_CHANGEPHASE': tool.OperationChanceList([tool.OperationLeftClick([690, 670]), tool.OperationClickOnImg('img/duel/main1.png')], [8, 1])
         }
         recursive_update(self.transfer_dict, custom_dict)
 
