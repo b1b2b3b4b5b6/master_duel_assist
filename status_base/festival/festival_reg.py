@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-03-04 21:33:52
-LastEditTime: 2022-03-23 20:43:04
+LastEditTime: 2022-04-09 13:56:18
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\pvp_reg.py
@@ -9,7 +9,7 @@ FilePath: \dllink_assist\pvp_reg.py
 
 import tool
 import logging
-from status.base_reg import STATUS_BASE
+from status_base.base_reg import STATUS_BASE
 from dict_recursive_update import recursive_update
 
 

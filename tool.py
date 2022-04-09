@@ -1,12 +1,14 @@
 '''
 Author: your name
 Date: 2021-02-21 02:27:24
-LastEditTime: 2022-03-23 22:31:25
+LastEditTime: 2022-04-10 00:24:40
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \挂机\findpic.py
 '''
 
+from random import randint, random
+from cv2 import randn
 import pyautogui
 import pymouse
 import pykeyboard
@@ -193,8 +195,6 @@ def init():
 
 
 class OperationBase:
-    ope_name = None
-    delay = 0
 
     def __init__(self, ope_name, delay=0) -> None:
         self.ope_name = ope_name
@@ -209,8 +209,6 @@ class OperationBase:
 
 
 class OperationDelay(OperationBase):
-    xy = None
-
     def __init__(self, delay=0.8) -> None:
         super().__init__('delay', delay)
 
@@ -222,7 +220,6 @@ class OperationDelay(OperationBase):
 
 
 class OperationRightClick(OperationBase):
-    xy = None
 
     def __init__(self, xy, delay=0.8) -> None:
         super().__init__('right_click', delay)
@@ -238,7 +235,6 @@ class OperationRightClick(OperationBase):
 
 
 class OperationLeftClick(OperationBase):
-    xy = None
 
     def __init__(self, xy, delay=0.8) -> None:
         super().__init__('click', delay)
@@ -249,6 +245,32 @@ class OperationLeftClick(OperationBase):
 
     def action(self):
         pymouse.PyMouse().click(*map(sum, zip(self.xy, g_resource.get_base_point())), 1)
+
+        super().action()
+
+
+class OperationChanceList(OperationBase):
+    def __init__(self,  ope_list: list, times_list: list) -> None:
+        super().__init__('chance')
+        self.ope_list = ope_list
+        self.times_list = times_list
+        if len(self.ope_list) != len(self.times_list):
+            logging.error(f'ope[{self}] illegal')
+            assert(None)
+
+    def __str__(self):
+        return f'{super().__str__()} | ope_list[{self.ope_list}] times_list[{self.times_list}]'.strip()
+
+    def action(self):
+        s = sum(self.times_list)
+        a = randint(1, s)
+        s = 0
+        for n in range(len(self.times_list)):
+            s += self.times_list[n]
+            if s >= a:
+                ope: OperationBase = self.ope_list[n]
+                ope.action()
+                break
 
         super().action()
 
