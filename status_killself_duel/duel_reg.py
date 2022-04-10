@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2022-04-09 17:18:02
-LastEditTime: 2022-04-10 01:51:03
+LastEditTime: 2022-04-10 13:18:48
 LastEditors: Please set LastEditors
 Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 FilePath: \master_duel_assist\status_killself_duel\duel_reg.py
@@ -147,8 +147,7 @@ class STATUS_DUELPOINT_ASK_ACTIVATE_NOT_SELECT(STATUS_DUELPOINT_BASE):
         recursive_update(self.transfer_dict, custom_dict)
 
         self.staimg_list += [
-            tool.ProofImgOR([tool.ProofImg('img/duel/ask_activate.png'),
-                             tool.ProofImg('img/duel/chain_ask_activate.png')]),
+            tool.ProofImg('img/duel/active_not_select.png'),
             tool.ProofImg('img/duel/gou.png', is_exist=False)
         ]
 
@@ -163,7 +162,6 @@ class STATUS_DUELPOINT_ASK_ACTIVATE_SELECT(STATUS_DUELPOINT_BASE):
         recursive_update(self.transfer_dict, custom_dict)
 
         self.staimg_list += [
-            tool.ProofImgOR([tool.ProofImg('img/duel/ask_activate.png'),
-                             tool.ProofImg('img/duel/chain_ask_activate.png')]),
+            tool.ProofImg('img/duel/active_not_select.png'),
             tool.ProofImg('img/duel/gou.png')
         ]
