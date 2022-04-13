@@ -1,11 +1,12 @@
 '''
 Author: your name
 Date: 2021-02-21 01:11:28
-LastEditTime: 2022-04-10 01:56:42
+LastEditTime: 2022-04-13 18:03:46
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \挂机\main.py
 '''
+import cmd
 import logging
 import time
 
@@ -19,6 +20,9 @@ logging.basicConfig(level=logging.INFO,
 
 skip_duel_status_list = ['status_base', 'status_skip_duel']
 killself_duel_status_list = ['status_base', 'status_killself_duel']
+
+tool.init()
+t = transfer.StatusControlThread(['status_base'])
 
 
 def festival(control: transfer.StatusControlThread):
@@ -47,12 +51,20 @@ def get_awards(control: transfer.StatusControlThread):
     logging.info('do get_awards finished')
 
 
-tool.init()
-t = transfer.StatusControlThread(['status_base'])
-t.start()
+ret = input("do festival? Y/N\n")
+if ret.strip() == "Y":
+    schedule.every(1).seconds.do(festival, t)
+    print("do festival\n")
 
-schedule.every(1).seconds.do(rank, t)
-schedule.every(1).hours.do(get_awards, t)
+
+ret = input("do rank? Y/N\n")
+if ret.strip() == "Y":
+    schedule.every(10).minutes.do(rank, t)
+    schedule.every(1).hours.do(get_awards, t)
+    print("do festival\n")
+
+
+t.start()
 schedule.run_all()
 
 try:
