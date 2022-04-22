@@ -1,5 +1,5 @@
 {
-    "ft_url_prefix": "https://sctapi.ftqq.com/xxxxxxxxxxxx.send?title=",
+    "ft_url_prefix": "https://sctapi.ftqq.com/SCTtitle=",
     "platform": "pc",
     "app_img_offset": [
         0,
@@ -8,5 +8,9 @@
     "app_img_wh": [
         1280,
         720
-    ]
+    ],
+    "start_time": "12:00",
+    "stop_time": "19:00",
+    "do_festival": false,
+    "do_rank": true
 }

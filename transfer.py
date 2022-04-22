@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-24 06:17:11
-LastEditTime: 2022-04-09 15:21:34
+LastEditTime: 2022-04-22 18:37:15
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\transfer.py
@@ -118,6 +118,7 @@ class StatusControlThread(threading.Thread):
                 pass
             elif self.target_thread_status == self.THREAD_STATUS_PAUSE:
                 self.now_thread_status = self.target_thread_status
+                time.sleep(3)
                 continue
             elif self.target_thread_status == self.THREAD_STATUS_STOP:
                 self.thread_statu = self.target_thread_status

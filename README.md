@@ -1,7 +1,7 @@
 # master_duel_assist
 
 master duel  辅助挂机脚本，适用于steam版本程序, 脚本稳定性高, 几乎不会卡死
-支持：超量&NR活动挂机（卡组无手坑），每日任务自杀和自动领钻(自杀卡组，稳定拿120钻)
+支持：活动挂机（卡组无手坑），每日任务自杀和自动领钻(自杀卡组，稳定拿120钻)，定时开启关闭游戏做任务
 
 #### 环境要求
 
@@ -16,5 +16,5 @@ master duel  辅助挂机脚本，适用于steam版本程序, 脚本稳定性高
 
 #### 使用
 
-- 复制config.json.template到config.json, 无需修改即可使用
+- 复制config.json.template到config.json, 修改定时和任务类型
 - 运行main.py

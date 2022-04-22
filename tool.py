@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 02:27:24
-LastEditTime: 2022-04-10 01:16:24
+LastEditTime: 2022-04-22 19:31:31
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \挂机\findpic.py
@@ -23,6 +23,8 @@ import requests
 import numpy
 import win32gui
 import win32con
+
+from config import config
 
 
 class ImgHandle():
@@ -64,25 +66,17 @@ class ImgHandle():
 class EnvInfo():
     allow_platform = ['pc', 'android']
 
-    platform = None
-    resurce_root = None
-    app_img_offset = None
-    app_img_wh = None
-    ft_url_prefix = None
+    def __init__(self, conf: config):
+        d = conf.get_dict()
 
-    def __init__(self, platform):
-        config_str = open('config.json', 'r', encoding='utf-8').read()
-        import json
-        conf = json.loads(config_str)
-
-        self.platform = conf['platform']
+        self.platform = d['platform']
         self.resurce_root = self.platform + '/'
-        self.app_img_offset = conf['app_img_offset']
-        self.app_img_wh = conf['app_img_wh']
-        self.ft_url_prefix = conf['ft_url_prefix']
+        self.app_img_offset = d['app_img_offset']
+        self.app_img_wh = d['app_img_wh']
+        self.ft_url_prefix = d['ft_url_prefix']
 
-        if platform not in self.allow_platform:
-            logging.error(f'platform[{platform} is not illegal]')
+        if self.platform not in self.allow_platform:
+            logging.error(f'platform[{self.platform} is not illegal]')
             assert(None)
 
         logging.info(f'{self}')
@@ -157,14 +151,13 @@ class Resource():
     def reset_base_point(self):
 
         logging.info('finding game window')
-        hwnd = win32gui.FindWindow(None, "masterduel")
-        if hwnd == None:
+        hwnd = GameControl.find()
+        if hwnd == 0:
             logging.error('can not find game window')
             assert(None)
 
         win32gui.ShowWindow(hwnd, win32con.SW_SHOWNORMAL)
         win32gui.SetForegroundWindow(hwnd)
-        print(win32gui.GetWindowPlacement(hwnd))
         win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0,
                               0, 0, win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
 
@@ -188,10 +181,10 @@ g_resource: Resource = None
 # 资源初始化
 
 
-def init():
+def init(conf: config):
     global g_resource
 
-    g_resource = Resource(EnvInfo('pc'))
+    g_resource = Resource(EnvInfo(conf))
 
 
 class OperationBase:
@@ -498,48 +491,40 @@ def get_all_modules(dir_name):
 #                   img='img/base/head.png', bg_app=False).action('screen')
 
 
-# class GameControl():
-#     def stop(self):
-#         logging.info('close game')
+class GameControl():
+    @staticmethod
+    def stop():
+        logging.info('stop game')
+        if GameControl.find() == 0:
+            return
+        win32gui.PostMessage(GameControl.find(), win32con.WM_CLOSE, 0, 0)
+        time.sleep(5)
+        if GameControl.find() != 0:
+            logging.error("can not stop game")
+            return
+        logging.info('stop game success')
 
-#         g_resource.refresh_screenshot()
-#         Operation(Operation.CLICK_ON_IMG,
-#                   img='img/base/home.png').action('screen')
-#         time.sleep(1)
+    @staticmethod
+    def start():
+        logging.info('start game')
+        if GameControl.find() != 0:
+            return
+        os.system('Start steam://rungameid/1449850')
+        time.sleep(5)
+        if GameControl.find() == 0:
+            logging.error("can not start game")
+            return
+        win32gui.ShowWindow(GameControl.find(), win32con.SW_SHOWNORMAL)
+        win32gui.SetForegroundWindow(GameControl.find())
+        win32gui.SetWindowPos(GameControl.find(), win32con.HWND_TOPMOST, 0, 0,
+                              0, 0, win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
 
-#         kb = pykeyboard.PyKeyboard()
-#         kb.tap_key(kb.function_keys[1])
-#         time.sleep(0.5)
+        logging.info('start game success')
 
-#         kb = pykeyboard.PyKeyboard()
-#         kb.tap_key(kb.function_keys[2])
-#         time.sleep(0.5)
-
-#         g_resource.refresh_screenshot()
-#         Operation(Operation.CLICK_ON_IMG,
-#                   img='img/base/clear.png').action('app')
-#         time.sleep(1)
-
-#     def start(self):
-#         logging.info('start game')
-#         g_resource.refresh_screenshot()
-#         Operation(Operation.CLICK_ON_IMG,
-#                   img='img/base/home.png').action('screen')
-#         time.sleep(1)
-
-#         kb = pykeyboard.PyKeyboard()
-#         kb.tap_key(kb.function_keys[1])
-#         time.sleep(0.5)
-
-#         g_resource.refresh_screenshot()
-#         Operation(Operation.CLICK_ON_IMG,
-#                   img='img/base/desk_icon.png').action('app')
-#         time.sleep(5)
-
-#     def restart(self):
-#         logging.info('restart game')
-#         self.stop()
-#         self.start()
+    @staticmethod
+    def find():
+        hwnd = win32gui.FindWindow(None, "masterduel")
+        return hwnd
 
 
 # 暂无断网功能
