@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 01:11:28
-LastEditTime: 2022-04-22 19:42:09
+LastEditTime: 2022-04-23 13:28:02
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \挂机\main.py
@@ -85,7 +85,7 @@ if(conf_dict['do_festival'] == True):
 
 if(conf_dict['do_rank'] == True):
     j = schedule.every(1).seconds.do(rank)
-    j = schedule.every(30).hours.do(get_awards)
+    j = schedule.every(30).minutes.do(get_awards)
     print("do rank\n")
 
 schedule.every().day.at(conf_dict['start_time']).do(start_game)
