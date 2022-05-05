@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-23 11:08:45
-LastEditTime: 2022-04-22 18:30:14
+LastEditTime: 2022-05-05 17:42:30
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \dllink_assist\base_reg.py
@@ -98,6 +98,22 @@ class STATUS_STARTGAME(STATUS_BASE):
 
         self.staimg_list += [
             tool.ProofImg('img/base/start_game.png')
+        ]
+
+        self.priority = self.PRI_TOP
+
+
+class STATUS_UPDATEGAME(STATUS_BASE):
+    def __init__(self):
+        super().__init__()
+
+        custom_dict = {
+            'STATUS_HOME': tool.OperationClickOnImg('img/base/update_game.png', is_cache=False)
+        }
+        recursive_update(self.transfer_dict, custom_dict)
+
+        self.staimg_list += [
+            tool.ProofImg('img/base/update_game.png')
         ]
 
         self.priority = self.PRI_TOP
