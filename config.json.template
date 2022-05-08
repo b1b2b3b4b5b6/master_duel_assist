@@ -9,8 +9,8 @@
         1280,
         720
     ],
-    "start_time": "05:00",
-    "stop_time": "10:00",
+    "start_time": "01:00",
+    "stop_time": "23:00",
     "do_festival": false,
     "do_rank": true
 }

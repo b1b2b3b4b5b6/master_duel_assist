@@ -1,8 +1,8 @@
 '''
 Author: your name
 Date: 2021-02-21 02:27:24
-LastEditTime: 2022-04-22 19:31:31
-LastEditors: Please set LastEditors
+LastEditTime: 2022-05-08 19:18:32
+LastEditors: b1b2b3b4b5b6 a1439458305@163.com
 Description: In User Settings Edit
 FilePath: \挂机\findpic.py
 '''
@@ -150,16 +150,16 @@ class Resource():
 
     def reset_base_point(self):
 
-        logging.info('finding game window')
-        hwnd = GameControl.find()
-        if hwnd == 0:
-            logging.error('can not find game window')
-            assert(None)
+        # logging.info('finding game window')
+        # hwnd = GameControl.find()
+        # if hwnd == 0:
+        #     logging.error('can not find game window')
+        #     assert(None)
 
-        win32gui.ShowWindow(hwnd, win32con.SW_SHOWNORMAL)
-        win32gui.SetForegroundWindow(hwnd)
-        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0,
-                              0, 0, win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
+        # win32gui.ShowWindow(hwnd, win32con.SW_SHOWNORMAL)
+        # win32gui.SetForegroundWindow(hwnd)
+        # win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0,
+        #                       0, 0, win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
 
         self.base_point = [8 + self.env_info.app_img_offset[0],
                            31 + self.env_info.app_img_offset[1]]
@@ -195,7 +195,8 @@ class OperationBase:
 
     def action(self):
         time.sleep(self.delay)
-        pymouse.PyMouse().move(0, 0)
+        pymouse.PyMouse().move(
+            *map(sum, zip([2, 2],  g_resource.get_base_point())))
 
     def __str__(self):
         return f'ope_name[{self.ope_name}] delay[{self.delay}]'.strip()
@@ -376,9 +377,9 @@ class ProofImg(Proof):
             xy = ImgHandle.find_img(
                 bg, g_resource.get_resource_obj(self.img_key))
 
-            if xy == None:
+            if xy != None:
                 logging.debug(
-                    f'{self} | can not proof]')
+                    f'{self} | can proof]')
 
             self.set_cache(self.img_key, xy != None)
 
@@ -493,33 +494,35 @@ def get_all_modules(dir_name):
 
 class GameControl():
     @staticmethod
-    def stop():
+    def stop() -> bool:
         logging.info('stop game')
-        if GameControl.find() == 0:
-            return
-        win32gui.PostMessage(GameControl.find(), win32con.WM_CLOSE, 0, 0)
-        time.sleep(5)
         if GameControl.find() != 0:
-            logging.error("can not stop game")
-            return
+            win32gui.PostMessage(GameControl.find(), win32con.WM_CLOSE, 0, 0)
+            time.sleep(5)
+            if GameControl.find() != 0:
+                logging.error("can not stop game")
+                return False
+
         logging.info('stop game success')
+        return True
 
     @staticmethod
-    def start():
+    def start() -> bool:
         logging.info('start game')
-        if GameControl.find() != 0:
-            return
-        os.system('Start steam://rungameid/1449850')
-        time.sleep(5)
         if GameControl.find() == 0:
-            logging.error("can not start game")
-            return
+            os.system('Start steam://rungameid/1449850')
+            time.sleep(5)
+            if GameControl.find() == 0:
+                logging.error("can not start game")
+                return False
+
         win32gui.ShowWindow(GameControl.find(), win32con.SW_SHOWNORMAL)
-        win32gui.SetForegroundWindow(GameControl.find())
+        # win32gui.SetForegroundWindow(GameControl.find())
         win32gui.SetWindowPos(GameControl.find(), win32con.HWND_TOPMOST, 0, 0,
                               0, 0, win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
 
         logging.info('start game success')
+        return True
 
     @staticmethod
     def find():

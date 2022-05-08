@@ -1,8 +1,8 @@
 '''
 Author: your name
 Date: 2021-02-23 11:08:45
-LastEditTime: 2022-04-10 01:01:35
-LastEditors: Please set LastEditors
+LastEditTime: 2022-05-08 19:06:00
+LastEditors: b1b2b3b4b5b6 a1439458305@163.com
 Description: In User Settings Edit
 FilePath: \dllink_assist\base_reg.py
 '''
@@ -79,7 +79,8 @@ class STATUS_DUEL_SETUP(STATUS_BASE):
         recursive_update(self.transfer_dict, custom_dict)
 
         self.staimg_list += [
-            tool.ProofImg('img/duel/setup_ing.png')
+            tool.ProofImg('img/duel/setup_ing.png'),
+            tool.ProofImg('img/duel/surrender_ask.png', is_exist=False)
         ]
 
 

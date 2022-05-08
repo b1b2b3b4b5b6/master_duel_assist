@@ -1,15 +1,17 @@
 '''
 Author: your name
 Date: 2021-02-21 01:11:28
-LastEditTime: 2022-04-23 13:28:02
-LastEditors: Please set LastEditors
+LastEditTime: 2022-05-08 19:26:49
+LastEditors: b1b2b3b4b5b6 a1439458305@163.com
 Description: In User Settings Edit
 FilePath: \挂机\main.py
 '''
 
 
+import datetime
 import logging
 import time
+from tracemalloc import start
 
 from matplotlib.pyplot import contour
 from config import config
@@ -17,26 +19,28 @@ import transfer
 import schedule
 import tool
 
-logging.basicConfig(level=logging.INFO,
+logging.basicConfig(level=logging.DEBUG,
                     format='[%(asctime)s][%(levelname)s]%(filename)s[%(lineno)d]:  %(message)s', datefmt='%d/%b/%Y %H:%M:%S')
 
 conf = config('config.json')
 conf_dict = conf.get_dict()
-tool.GameControl.start()
+
+start_time: str = conf_dict['start_time']
+start_time = start_time.replace(':', '')
+stop_time: str = conf_dict['stop_time']
+stop_time = stop_time.replace(':', '')
+
 tool.init(conf)
-tool.GameControl.stop()
 
 skip_duel_status_list = ['status_base', 'status_skip_duel']
 killself_duel_status_list = ['status_base', 'status_killself_duel']
 
 
 t = transfer.StatusControlThread(['status_base'])
+t.start()
 
 
 def festival():
-    if t.now_thread_status != t.THREAD_STATUS_RUN:
-        time.sleep(5)
-        return
     t.re_init(skip_duel_status_list)
     logging.info('do festival start')
     t.goto_status('STATUS_FESTIVAL_MYDECK', 0)
@@ -46,9 +50,6 @@ def festival():
 
 
 def rank():
-    if t.now_thread_status != t.THREAD_STATUS_RUN:
-        time.sleep(5)
-        return
     t.re_init(killself_duel_status_list)
     logging.info('do rank start')
     t.goto_status('STATUS_RANK_MYDECK', 0)
@@ -58,9 +59,6 @@ def rank():
 
 
 def get_awards():
-    if t.now_thread_status != t.THREAD_STATUS_RUN:
-        time.sleep(5)
-        return
     t.re_init(killself_duel_status_list)
     logging.info('do get_awards start')
     t.goto_status('STATUS_MISSIONS_NO_AWARDS', 0)
@@ -69,13 +67,15 @@ def get_awards():
 
 
 def start_game():
-    tool.GameControl.start()
+    while(tool.GameControl.start() != True):
+        pass
     t.goto_thread_status(t.THREAD_STATUS_RUN)
 
 
 def stop_game():
     t.goto_thread_status(t.THREAD_STATUS_PAUSE)
-    tool.GameControl.stop()
+    while(tool.GameControl.stop() != True):
+        pass
 
 
 if(conf_dict['do_festival'] == True):
@@ -84,21 +84,24 @@ if(conf_dict['do_festival'] == True):
     print("do festival\n")
 
 if(conf_dict['do_rank'] == True):
-    j = schedule.every(1).seconds.do(rank)
-    j = schedule.every(30).minutes.do(get_awards)
+    schedule.every(1).seconds.do(rank)
+    schedule.every(30).minutes.do(get_awards)
     print("do rank\n")
 
-schedule.every().day.at(conf_dict['start_time']).do(start_game)
-schedule.every().day.at(conf_dict['stop_time']).do(stop_game)
-
-
-t.start()
-t.goto_thread_status(t.THREAD_STATUS_PAUSE)
 
 try:
     while True:
-        schedule.run_pending()
         time.sleep(1)
+        now_time = datetime.datetime.strftime(
+            datetime.datetime.now(), '%H%M')
+
+        if int(now_time) >= int(start_time) and int(now_time) <= int(stop_time):
+            start_game()
+            schedule.run_pending()
+
+        else:
+            stop_game()
+
 
 except KeyboardInterrupt:
     t.goto_thread_status(t.THREAD_STATUS_STOP)
