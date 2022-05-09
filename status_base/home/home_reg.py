@@ -1,8 +1,8 @@
 '''
 Author: your name
 Date: 2021-02-23 11:08:45
-LastEditTime: 2022-04-10 01:57:40
-LastEditors: Please set LastEditors
+LastEditTime: 2022-05-09 18:42:04
+LastEditors: b1b2b3b4b5b6 a1439458305@163.com
 Description: In User Settings Edit
 FilePath: \dllink_assist\base_reg.py
 '''
@@ -24,4 +24,19 @@ class STATUS_HOME(STATUS_BASE):
 
         self.staimg_list += [
             tool.ProofImg('img/home/duel_enter.png')
+        ]
+
+
+class STATUS_NOTICE(STATUS_BASE):
+    def __init__(self):
+        super().__init__()
+
+        custom_dict = {
+            'STATUS_HOME': tool.OperationClickOnImg('img/home/notice_back.png'),
+        }
+        recursive_update(self.transfer_dict, custom_dict)
+
+        self.staimg_list += [
+            tool.ProofImg('img/home/notice_back.png'),
+            tool.ProofImg('img/home/notice_ing.png'),
         ]
