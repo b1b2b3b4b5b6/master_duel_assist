@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 01:11:28
-LastEditTime: 2022-05-08 19:26:49
+LastEditTime: 2022-05-10 12:07:15
 LastEditors: b1b2b3b4b5b6 a1439458305@163.com
 Description: In User Settings Edit
 FilePath: \挂机\main.py
@@ -61,7 +61,8 @@ def rank():
 def get_awards():
     t.re_init(killself_duel_status_list)
     logging.info('do get_awards start')
-    t.goto_status('STATUS_MISSIONS_NO_AWARDS', 0)
+    t.goto_status('STATUS_MISSIONS', 0)
+    tool.OperationLeftClick([1105, 664], 2)
     t.goto_status('STATUS_HOME', 0)
     logging.info('do get_awards finished')
 
