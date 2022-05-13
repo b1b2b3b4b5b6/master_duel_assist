@@ -81,11 +81,10 @@ def stop_game():
 
 if(conf_dict['do_festival'] == True):
     schedule.every(1).seconds.do(festival)
-    schedule.every(1).seconds.do(festival)
     print("do festival\n")
 
 if(conf_dict['do_rank'] == True):
-    schedule.every(1).seconds.do(rank)
+    schedule.every(20).seconds.do(rank)
     schedule.every(30).minutes.do(get_awards)
     print("do rank\n")
 
