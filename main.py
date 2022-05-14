@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 01:11:28
-LastEditTime: 2022-05-10 12:07:15
+LastEditTime: 2022-05-14 22:45:44
 LastEditors: b1b2b3b4b5b6 a1439458305@163.com
 Description: In User Settings Edit
 FilePath: \挂机\main.py
@@ -63,6 +63,7 @@ def get_awards():
     logging.info('do get_awards start')
     t.goto_status('STATUS_MISSIONS', 0)
     tool.OperationLeftClick([1105, 664], 2)
+    tool.OperationLeftClick([1105, 664], 2)
     t.goto_status('STATUS_HOME', 0)
     logging.info('do get_awards finished')
 
@@ -84,7 +85,7 @@ if(conf_dict['do_festival'] == True):
     print("do festival\n")
 
 if(conf_dict['do_rank'] == True):
-    schedule.every(20).seconds.do(rank)
+    schedule.every(1).seconds.do(rank)
     schedule.every(30).minutes.do(get_awards)
     print("do rank\n")
 
