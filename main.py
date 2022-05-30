@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 01:11:28
-LastEditTime: 2022-05-18 20:16:23
+LastEditTime: 2022-05-30 12:22:52
 LastEditors: b1b2b3b4b5b6 a1439458305@163.com
 Description: In User Settings Edit
 FilePath: \挂机\main.py
@@ -32,8 +32,8 @@ stop_time = stop_time.replace(':', '')
 
 tool.init(conf)
 
-skip_duel_status_list = ['status_base', 'status_skip_duel']
-killself_duel_status_list = ['status_base', 'status_killself_duel']
+festival_duel_status_list = ['status_base', 'status_festival_duel']
+rank_duel_status_list = ['status_base', 'status_rank_duel']
 
 
 t = transfer.StatusControlThread(['status_base'])
@@ -41,7 +41,7 @@ t.start()
 
 
 def festival():
-    t.re_init(skip_duel_status_list)
+    t.re_init(festival_duel_status_list)
     logging.info('do festival start')
     t.goto_status('STATUS_FESTIVAL_MYDECK', 0)
     t.goto_status('STATUS_DUEL_MAIN1', 0)
@@ -50,7 +50,7 @@ def festival():
 
 
 def rank():
-    t.re_init(killself_duel_status_list)
+    t.re_init(rank_duel_status_list)
     logging.info('do rank start')
     t.goto_status('STATUS_RANK_MYDECK', 0)
     t.goto_status('STATUS_DUEL_MAIN1', 0)
@@ -59,7 +59,7 @@ def rank():
 
 
 def get_awards():
-    t.re_init(killself_duel_status_list)
+    t.re_init(festival_duel_status_list)
     logging.info('do get_awards start')
     t.goto_status('STATUS_MISSIONS', 0)
     tool.OperationLeftClick([1105, 664], 2).action()
