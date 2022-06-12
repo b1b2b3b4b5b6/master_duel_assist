@@ -18,7 +18,6 @@ master duel  辅助挂机脚本，适用于steam版本程序, 脚本稳定性高
   - 游戏语言英文
   - 窗口分辨率1280*720，高画质
   - 文本大小中等
-
 ![img](https://raw.githubusercontent.com/b1b2b3b4b5b6/pic/main/PicGo/202206120907523.png)
 - 决斗设置
   - 设置自动选择卡片位置
