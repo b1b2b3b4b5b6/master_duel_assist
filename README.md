@@ -13,7 +13,9 @@ master duel  辅助挂机脚本，适用于steam版本程序, 脚本稳定性高
 - 设置自动连锁
 - 关闭自我连锁
 - 根据requirements.txt安装必要python库
+- 推荐自杀卡组
 
+![](https://raw.githubusercontent.com/b1b2b3b4b5b6/pic/main/PicGo/202206120858460.png)
 #### 使用
 
 - 复制config.json.template到config.json, 修改定时和任务类型
