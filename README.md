@@ -18,15 +18,15 @@ master duel  辅助挂机脚本，适用于steam版本程序, 脚本稳定性高
   - 游戏语言英文
   - 窗口分辨率1280*720，高画质
   - 文本大小中等
-
 ![img](https://raw.githubusercontent.com/b1b2b3b4b5b6/pic/main/PicGo/202206120907523.png)
 - 决斗设置
   - 设置自动选择卡片位置
   - 设置手牌被选中时，命令显示在怪兽区域上（决斗设置-倒数第二个，设为set）
   - 设置自动连锁
   - 关闭自我连锁
-![img](https://raw.githubusercontent.com/b1b2b3b4b5b6/pic/main/PicGo/202206120907521.png)
 ![img](https://raw.githubusercontent.com/b1b2b3b4b5b6/pic/main/PicGo/202206120907520.png)
+![img](https://raw.githubusercontent.com/b1b2b3b4b5b6/pic/main/PicGo/202206120907521.png)
+
 - 根据requirements.txt安装必要python库
 - 推荐自杀卡组
 
