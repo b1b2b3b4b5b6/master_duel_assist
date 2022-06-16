@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-02-21 01:11:28
-LastEditTime: 2022-05-30 12:22:52
+LastEditTime: 2022-06-16 21:00:19
 LastEditors: b1b2b3b4b5b6 a1439458305@163.com
 Description: In User Settings Edit
 FilePath: \挂机\main.py
@@ -82,6 +82,7 @@ def stop_game():
 
 if(conf_dict['do_festival'] == True):
     schedule.every(1).seconds.do(festival)
+    schedule.every(30).minutes.do(get_awards)
     print("do festival\n")
 
 if(conf_dict['do_rank'] == True):
